@@ -7,7 +7,7 @@ import { VariantsModule } from './variants/variants.module';
 import { OrdersModule } from './orders/orders.module';
 import { PaymentsModule } from './payments/payments.module';
 import { ShippingModule } from './shipping/shipping.module';
-import { AddressesModule } from './addresses/addresses.module';
+import { AddressesModule } from './addresses/addresses.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
