@@ -41,7 +41,7 @@ export class UsersController {
     @ApiResponse({status: 201, description: 'User deleted successfully.'})
     @Delete(":id")
     async delete(@Param('id', ParseIntPipe) id: string) {
-        const address = await this.usersService.remove(id);
-        return address;
+        const user = await this.usersService.remove(id);
+        return user;
     }
 }
