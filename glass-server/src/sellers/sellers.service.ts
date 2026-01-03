@@ -4,11 +4,13 @@ import { Seller } from './entities/seller.entity';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { CreateSellerDto } from './dto/create.seller.dto';
 import { UpdateSellerDto } from './dto/update.seller.dto';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class SellersService {
 
     constructor(
+        @InjectRepository(Seller)
         private readonly sellerRepository: Repository<Seller>
     ){}
 

@@ -27,7 +27,7 @@ export class ProductVariant {
   @Column({ default: 0 })
   stock: number;
 
-  @ManyToOne(() => Glass, (glass) => glass.id)
+  @ManyToOne(() => Glass, (glass) => glass.id, { onDelete: 'CASCADE' }) // This is the key!
   @JoinColumn({ name: 'glassId' })
   glass: Glass;
 }

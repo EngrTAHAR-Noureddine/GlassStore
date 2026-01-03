@@ -4,11 +4,13 @@ import { DeliveryService } from './entities/delivery.service.entity';
 import { CreateDeliveryServiceDto } from './dto/create.delivery.service.dto';
 import { UpdateDeliveryServiceDto } from './dto/update.delivery.service.dto';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class DeliveryServiceService {
 
     constructor(
+        @InjectRepository(DeliveryService)
         private readonly  deliveryServiceRepository: Repository<DeliveryService>
     ){}
 

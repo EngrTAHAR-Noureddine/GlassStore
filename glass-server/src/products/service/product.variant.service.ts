@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { ProductVariant } from './entities/product.variant.entity';
+import { ProductVariant } from '../entities/product.variant.entity';
 import { Repository } from 'typeorm';
-import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
-import { UpdateProductVariantDto } from './dto/update.product.variant.dto';
-import { CreateProductVariantDto } from './dto/create.product.variant.dto';
+import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
+import { UpdateProductVariantDto } from '../dto/update.product.variant.dto';
+import { CreateProductVariantDto } from '../dto/create.product.variant.dto';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class ProductVariantService {
     constructor(
+        @InjectRepository(ProductVariant)
         private readonly productVariantRepository: Repository<ProductVariant>
     ){}
 

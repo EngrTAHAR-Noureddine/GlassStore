@@ -4,10 +4,12 @@ import { Repository } from 'typeorm';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { CreateShippingDto } from './dto/create.shipping.dto';
 import { UpdateShippingDto } from './dto/update.shipping.dto';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class ShippingService {
     constructor(
+        @InjectRepository(Shipping)
         private readonly shippingRepository: Repository<Shipping>
     ){}
 

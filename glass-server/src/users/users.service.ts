@@ -4,10 +4,12 @@ import { User } from './entities/user.entity';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { UpdateUserDto } from './dto/update.user.dto';
 import { CreateUserDto } from './dto/create.user.dto';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class UsersService {
     constructor(
+        @InjectRepository(User)
         private readonly usersRepository: Repository<User>
     ){}
 

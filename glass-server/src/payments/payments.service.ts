@@ -4,11 +4,13 @@ import { Payment } from './entities/payment.entity';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { CreatePaymentDto } from './dto/create.payment.dto';
 import { UpdatePaymentDto } from './dto/update.payment.dto';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class PaymentsService {
 
     constructor(
+        @InjectRepository(Payment)
         private readonly paymentRepository: Repository<Payment>
     ) {}
 

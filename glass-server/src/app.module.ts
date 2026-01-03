@@ -10,7 +10,6 @@ import { AddressesModule } from './addresses/addresses.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
-import { UserService } from './user/user.service';
 import appConfig from './common/config/app.config';
 import Joi from 'joi';
 
@@ -39,7 +38,7 @@ import Joi from 'joi';
       DATABASE_PASSWORD: Joi.string().required(),
       DATABASE_NAME: Joi.string().required(),
     }),
-  }),
+    }),
     UsersModule, 
     SellersModule, 
     ProductsModule, 
@@ -49,6 +48,6 @@ import Joi from 'joi';
     AddressesModule
   ],
   controllers: [AppController],
-  providers: [AppService, UserService],
+  providers: [AppService],
 })
 export class AppModule {}

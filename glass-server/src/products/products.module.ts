@@ -1,10 +1,22 @@
 import { Module } from '@nestjs/common';
-import { ProductsService } from './products/products.service';
-import { BrandService } from './brand.service';
-import { GlassService } from './glass.service';
-import { ProductVariantService } from './product.variant.service';
+import { BrandService } from './service/brand.service';
+import { GlassService } from './service/glass.service';
+import { ProductVariantService } from './service/product.variant.service';
+import { ProductsController } from './controller/products.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Brand } from './entities/brand.entity';
+import { Glass } from './entities/glass.entity';
+import { ProductVariant } from './entities/product.variant.entity';
 
 @Module({
-  providers: [ProductsService, BrandService, GlassService, ProductVariantService]
+  imports:[
+      TypeOrmModule.forFeature([
+              Brand,
+              Glass,
+              ProductVariant
+      ]),
+    ],
+  providers: [BrandService, GlassService, ProductVariantService],
+  controllers: [ProductsController],
 })
 export class ProductsModule {}

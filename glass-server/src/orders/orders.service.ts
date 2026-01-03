@@ -4,11 +4,13 @@ import { Order } from './entities/order.entity';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { CreateOrderDto } from './dto/create.order.dto';
 import { UpdateOrderDto } from './dto/update.order.dto';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class OrdersService {
 
     constructor(
+        @InjectRepository(Order)
         private readonly ordersRepository: Repository<Order>,
     ) { }
 

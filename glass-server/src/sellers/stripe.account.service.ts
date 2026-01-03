@@ -4,11 +4,13 @@ import { StripeAccount } from './entities/stripe.account.entity';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { CreateStripeAccountDto } from './dto/create.stripe.account.dto';
 import { UpdateStripeAccountDto } from './dto/update.stripe.account.dto';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class StripeAccountService {
 
     constructor(
+        @InjectRepository(StripeAccount)
         private readonly stripeAccountRepository: Repository<StripeAccount>
     ){}
 
