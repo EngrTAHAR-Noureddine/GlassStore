@@ -20,7 +20,7 @@ export class ShippingController {
 
     @ApiResponse({status: 200, description: 'Shipping retrieved successfully.'})
     @Get(":id")
-    getById(@Param('id', ParseIntPipe) id: string) {
+    getById(@Param('id') id: string) {
         const shipping = this.shippingService.findOne(id);
         return shipping;
     }
@@ -34,14 +34,14 @@ export class ShippingController {
 
     @ApiResponse({status: 201, description: 'Shipping updated successfully.'})
     @Put(":id")
-    async update(@Body() addressDto: UpdateShippingDto, @Param('id', ParseIntPipe) id: string) {
+    async update(@Body() addressDto: UpdateShippingDto, @Param('id') id: string) {
         const shipping = await this.shippingService.update(id, addressDto);
         return shipping;
     }
 
     @ApiResponse({status: 201, description: 'Shipping deleted successfully.'})
     @Delete(":id")
-    async delete(@Param('id', ParseIntPipe) id: string) {
+    async delete(@Param('id') id: string) {
         const shipping = await this.shippingService.remove(id);
         return shipping;
     }

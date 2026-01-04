@@ -21,7 +21,7 @@ export class PaymentsController {
 
     @ApiResponse({status: 200, description: 'Order retrieved successfully.'})
     @Get(":id")
-    getById(@Param('id', ParseIntPipe) id: string) {
+    getById(@Param('id') id: string) {
         const payment = this.paymentsService.findOne(id);
         return payment;
     }
@@ -35,14 +35,14 @@ export class PaymentsController {
 
     @ApiResponse({status: 201, description: 'Payment updated successfully.'})
     @Put(":id")
-    async update(@Body() paymentDto: UpdatePaymentDto, @Param('id', ParseIntPipe) id: string) {
+    async update(@Body() paymentDto: UpdatePaymentDto, @Param('id') id: string) {
         const payment = await this.paymentsService.update(id, paymentDto);
         return payment;
     }
 
     @ApiResponse({status: 201, description: 'Payment deleted successfully.'})
     @Delete(":id")
-    async delete(@Param('id', ParseIntPipe) id: string) {
+    async delete(@Param('id') id: string) {
         const payment = await this.paymentsService.remove(id);
         return payment;
     }

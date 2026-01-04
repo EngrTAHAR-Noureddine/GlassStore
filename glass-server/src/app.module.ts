@@ -27,6 +27,7 @@ import Joi from 'joi';
           database: process.env.DATABASE_NAME,
           autoLoadEntities: true,
           synchronize: true,
+          // dropSchema: true,
         })
     }),
     ConfigModule.forRoot({

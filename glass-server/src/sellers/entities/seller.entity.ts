@@ -11,6 +11,12 @@ export class Seller {
   storeName: string;
 
   @Column()
+  firstName: string;
+
+  @Column()
+  lastName: string;
+
+  @Column()
   email: string;
 
   @Column({ select: false }) // Security: Hide password from default queries

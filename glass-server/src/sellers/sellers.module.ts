@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { SellersService } from './sellers.service';
 import { StripeAccountService } from './stripe.account.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -12,8 +12,9 @@ import { SellersController } from './sellers.controller';
               Seller,
               StripeAccount
       ]),
-    ],
+      // forwardRef(() => UsersModule), // to avoid circular dependency
+  ],
   providers: [SellersService, StripeAccountService],
-  controllers: [SellersController]
+  controllers: [SellersController],
 })
 export class SellersModule {}

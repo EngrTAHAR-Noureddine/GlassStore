@@ -22,7 +22,7 @@ export class OrdersController {
 
     @ApiResponse({status: 200, description: 'Order retrieved successfully.'})
     @Get(":id")
-    getById(@Param('id', ParseIntPipe) id: string) {
+    getById(@Param('id') id: string) {
         const order = this.ordersService.findOne(id);
         return order;
     }
@@ -36,14 +36,14 @@ export class OrdersController {
 
     @ApiResponse({status: 201, description: 'Order updated successfully.'})
     @Put(":id")
-    async update(@Body() orderDto: UpdateOrderDto, @Param('id', ParseIntPipe) id: string) {
+    async update(@Body() orderDto: UpdateOrderDto, @Param('id') id: string) {
         const order = await this.ordersService.update(id, orderDto);
         return order;
     }
 
     @ApiResponse({status: 201, description: 'Order deleted successfully.'})
     @Delete(":id")
-    async delete(@Param('id', ParseIntPipe) id: string) {
+    async delete(@Param('id') id: string) {
         const order = await this.ordersService.remove(id);
         return order;
     }

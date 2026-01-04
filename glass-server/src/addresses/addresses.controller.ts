@@ -20,7 +20,7 @@ export class AddressesController {
 
     @ApiResponse({status: 200, description: 'Address retrieved successfully.'})
     @Get(":id")
-    getById(@Param('id', ParseIntPipe) id: string) {
+    getById(@Param('id') id: string) {
         const address = this.addressesService.findOne(id);
         return address;
     }
@@ -34,14 +34,14 @@ export class AddressesController {
 
     @ApiResponse({status: 201, description: 'Address updated successfully.'})
     @Put(":id")
-    async update(@Body() addressDto: UpdateAddressDto, @Param('id', ParseIntPipe) id: string) {
+    async update(@Body() addressDto: UpdateAddressDto, @Param('id') id: string) {
         const address = await this.addressesService.update(id, addressDto);
         return address;
     }
 
     @ApiResponse({status: 201, description: 'Address deleted successfully.'})
     @Delete(":id")
-    async delete(@Param('id', ParseIntPipe) id: string) {
+    async delete(@Param('id') id: string) {
         const address = await this.addressesService.remove(id);
         return address;
     }
