@@ -5,6 +5,7 @@ import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { UpdateUserDto } from './dto/update.user.dto';
 import { CreateUserDto } from './dto/create.user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
+import { console } from 'inspector';
 
 @Injectable()
 export class UsersService {
@@ -25,6 +26,7 @@ export class UsersService {
         
     async findOne(id:string): Promise<User> {
         const user = await this.usersRepository.findOneBy({id});
+        console.log(user);
         if(!user){
             throw new Error(`User with ID ${id} not found`);
         }

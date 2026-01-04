@@ -19,7 +19,7 @@ export class UsersController {
 
     @ApiResponse({status: 200, description: 'User retrieved successfully.'})
     @Get(":id")
-    getById(@Param('id', ParseIntPipe) id: string) {
+    getById(@Param('id') id: string) {
         const user = this.usersService.findOne(id);
         return user;
     }
@@ -33,14 +33,14 @@ export class UsersController {
 
     @ApiResponse({status: 201, description: 'User updated successfully.'})
     @Put(":id")
-    async update(@Body() userDto: UpdateUserDto, @Param('id', ParseIntPipe) id: string) {
+    async update(@Body() userDto: UpdateUserDto, @Param('id') id: string) {
         const user = await this.usersService.update(id, userDto);
         return user;
     }
 
     @ApiResponse({status: 201, description: 'User deleted successfully.'})
     @Delete(":id")
-    async delete(@Param('id', ParseIntPipe) id: string) {
+    async delete(@Param('id') id: string) {
         const user = await this.usersService.remove(id);
         return user;
     }

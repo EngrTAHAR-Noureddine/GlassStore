@@ -1,14 +1,14 @@
-import { IsOptional, IsPositive } from "class-validator";
+import { IsOptional, IsPositive, Min } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class PaginationQueryDto {
     @IsOptional()
-    // @Type(() => Number) // to convert the query string to a number 
-    // we don't need it if we enable enableImplicitConversion in main.ts
     @IsPositive()
-    limit: number;
+    @Type(() => Number) 
+    limit: number = 10; 
+    
     @IsOptional()
-    // @Type(() => Number) // to convert the query string to a number 
-    // we don't need it if we enable enableImplicitConversion in main.ts
-    @IsPositive()
-    offset: number;
+    @Min(0) 
+    @Type(() => Number)
+    offset: number = 0; 
 }
