@@ -7,7 +7,6 @@ import { CreateBrandDto } from "./create.brand.dto";
 
 export class UpdateProductDto {
 
-  @IsNotEmptyObject()
   @Optional()
   glass?: UpdateGlassDto;
 
@@ -18,7 +17,6 @@ export class UpdateProductDto {
   @IsOptional()
   idBrand?: string;
 
-  @IsNotEmptyObject()
   @Optional()
   variant?: UpdateProductVariantDto;
 }

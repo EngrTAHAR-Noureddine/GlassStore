@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Brand } from './entities/brand.entity';
 import { Glass } from './entities/glass.entity';
 import { ProductVariant } from './entities/product.variant.entity';
+import { SellersModule } from '../sellers/sellers.module';
 
 @Module({
   imports:[
@@ -15,6 +16,7 @@ import { ProductVariant } from './entities/product.variant.entity';
               Glass,
               ProductVariant
       ]),
+      SellersModule,
     ],
   providers: [BrandService, GlassService, ProductVariantService],
   controllers: [ProductsController],

@@ -51,6 +51,8 @@ export class GlassService {
         const glass = this.glassRepository.create({
             ...glassDto,
             seller: seller,
+            sellerId: seller.id,
+            brandId: brand.id,
             brand:brand
         });
 

@@ -16,5 +16,6 @@ import { SellersController } from './sellers.controller';
   ],
   providers: [SellersService, StripeAccountService],
   controllers: [SellersController],
+  exports: [SellersService],
 })
 export class SellersModule {}

@@ -9,7 +9,6 @@ export class CreateProductDto {
     description: 'The glass details for the product',
     example: `
       {
-        "brandId": "b1a7f5e2-3c4d-4e5f-8a9b-0c1d2e3f4a5b",
         "name": "Aviator Classic",
         "description": "Classic aviator style with metal frame",
         "basePrice": 199.99,
@@ -18,7 +17,6 @@ export class CreateProductDto {
     `,
     default: `
       {
-        "brandId": "a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d",
         "name": "Standard Model",
         "description": "No description available",
         "basePrice": 99.99,

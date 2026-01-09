@@ -1,15 +1,25 @@
 import { IsString, IsNotEmpty, IsNumber, IsBoolean, IsUUID, IsOptional, Min } from 'class-validator';
 import { ApiProperty } from "@nestjs/swagger";
+import { Optional } from '@nestjs/common';
 
 export class CreateGlassDto {
+  // @ApiProperty({
+  //   description: 'The ID of the brand associated with the glass',
+  //   example: 'b1a7f5e2-3c4d-4e5f-8a9b-0c1d2e3f4a5b',
+  //   default: 'a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d'
+  // })
+  // @IsUUID()
+  // @IsNotEmpty()
+  // brandId: string;
+
   @ApiProperty({
-    description: 'The ID of the brand associated with the glass',
-    example: 'b1a7f5e2-3c4d-4e5f-8a9b-0c1d2e3f4a5b',
-    default: 'a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d'
-  })
+      description: 'The unique identifier of the glass',
+      example: "b1a7f5e2-3c4d-4e5f-8a9b-0c1d2e3f4a5b",
+      default: "a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d"
+    })
   @IsUUID()
-  @IsNotEmpty()
-  brandId: string;
+  @Optional()
+  id: string;
 
   @ApiProperty({
     description: 'The name of the glass model',

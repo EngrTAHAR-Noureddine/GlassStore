@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { Brand } from '../entities/brand.entity';
 import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
 import { CreateBrandDto } from '../dto/create.brand.dto';
@@ -13,15 +13,16 @@ export class BrandService {
         private readonly brandRepository: Repository<Brand>
     ){}
 
-    findAll(paginationQuery : PaginationQueryDto): Promise<Brand[]> {
-                const { limit, offset } = paginationQuery;
-                return this.brandRepository.find(
-                    {
-                        skip: offset,
-                        take: limit
-                    }
-                );
-            }
+    async findAll(paginationQuery: PaginationQueryDto): Promise<Brand[]> {
+        const { limit, offset, search } = paginationQuery;
+
+        return await this.brandRepository.find({
+            where: search ? { name: ILike(`${search}%`) } : {}, 
+            skip: offset,
+            take: limit,
+            order: { name: 'ASC' }
+        });
+    }
         
     async findOne(id:string): Promise<Brand> {
         const brand = await this.brandRepository.findOneBy({id});
@@ -30,6 +31,10 @@ export class BrandService {
         }
 
         return brand;
+    }
+
+    async findByName(name: string): Promise<Brand | null> {
+        return await this.brandRepository.findOne({ where: { name } });
     }
 
     create(brandDto : CreateBrandDto): Promise<Brand> {

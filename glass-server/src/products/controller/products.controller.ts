@@ -6,16 +6,9 @@ import { BrandService } from '../service/brand.service';
 import { UpdateProductDto } from '../dto/update.product.dto';
 import { ProductVariantService } from '../service/product.variant.service';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Seller } from '../../sellers/entities/seller.entity';
+import { SellersService } from '../../sellers/sellers.service';
 
-const seller = new Seller();
-seller.id = "123e4567-e89b-12d3-a456-426614174000";
-seller.storeName = "Demo Store";
-seller.email = "test@test.com";
-seller.password = "securepassword";
-seller.rating = 4.5;
-seller.createdAt = new Date();
-
+const idSeller = "9db9261f-1c56-4e40-b1b1-a0357753f44e"; // TODO : remove this hardcoded value and get seller from req.user
 
 @ApiTags("Glasses")
 @Controller('glasses')
@@ -25,7 +18,15 @@ export class ProductsController {
         private readonly glassService: GlassService,
         private readonly brandService: BrandService,
         private readonly productVariantService: ProductVariantService,
+        private readonly sellersService: SellersService, // TODO : remove this and get seller from req.user
     ){}
+
+    @ApiResponse({status: 200, description: 'List of brands retrieved successfully.'})
+    @Get("brands")
+    async getBrands(@Query() paginationQuery : PaginationQueryDto) {
+        const brands = await this.brandService.findAll(paginationQuery);
+        return brands;
+    }
 
     @ApiResponse({status: 200, description: 'List of glasses retrieved successfully.'})
     @Get()
@@ -36,14 +37,14 @@ export class ProductsController {
 
     @ApiResponse({status: 200, description: 'List of glasses by seller retrieved successfully.'})
     @Get("seller/:id")
-    getBySeller(@Param('id', ParseIntPipe) id: string) {
+    getBySeller(@Param('id', ParseUUIDPipe) id: string) {
         const glasses = this.glassService.findBySeller(id);
         return glasses;
     }
 
     @ApiResponse({status: 200, description: 'Glass retrieved successfully.'})
     @Get(":id")
-    getById(@Param('id', ParseIntPipe) id: string) {
+    getById(@Param('id', ParseUUIDPipe) id: string) {
         const glasses = this.glassService.findOne(id);
         return glasses;
     }
@@ -52,14 +53,17 @@ export class ProductsController {
     @Post()
     async createProduct(@Body() productDto: CreateProductDto, /* @Req() req */) {
         let brand;
-        // 1. Handle Brand logic (Find existing or Create new)
         if (productDto.idBrand) {
             brand = await this.brandService.findOne(productDto.idBrand);
-        } else if (productDto.brand) {
-            brand = await this.brandService.create(productDto.brand);
+        } else if (productDto.brand && productDto.brand.name) {
+            brand = await this.brandService.findByName(productDto.brand.name);
+            if (!brand) {
+                brand = await this.brandService.create(productDto.brand);
+            }
         }
 
-        // 2. Create the Glass (using the brand and the logged-in seller)
+        let seller = await this.sellersService.findOne(idSeller);
+
         // Pass the brand object directly as you planned
         const glass = await this.glassService.create(productDto.glass, brand, seller /* req.user */);
 
@@ -68,7 +72,8 @@ export class ProductsController {
             // Ensure the variant is linked to the newly created glass
             const variantData = {
                 ...productDto.variant,
-                glassId: glass.id
+                glassId: glass.id,
+                glass: glass
             };
             await this.productVariantService.create(variantData);
         }
@@ -96,6 +101,7 @@ export class ProductsController {
 
         // 2. Update Glass Logic
         if (productDto.glass) {
+            let seller = await this.sellersService.findOne(idSeller);
             // Pass the brand object and the seller (req.user) to ensure ownership
             updatedGlass = await this.glassService.update(id, productDto.glass, brand, /*req.user*/ seller);
         }
