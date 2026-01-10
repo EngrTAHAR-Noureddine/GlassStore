@@ -10,8 +10,12 @@ import { AddressesModule } from './addresses/addresses.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
+import { AuthService } from './auth/auth.service';
+import { AuthModule } from './auth/auth.module';
 import appConfig from './common/config/app.config';
 import Joi from 'joi';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 
 @Module({
   imports: [
@@ -46,9 +50,15 @@ import Joi from 'joi';
     OrdersModule, 
     PaymentsModule, 
     ShippingModule, 
-    AddressesModule
+    AddressesModule,
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    AppService],
 })
 export class AppModule {}

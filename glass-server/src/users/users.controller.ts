@@ -1,11 +1,12 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { UpdateUserDto } from './dto/update.user.dto';
 import { CreateUserDto } from './dto/create.user.dto';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 
 @Controller('users')
+@ApiBearerAuth('JWT-auth')
 export class UsersController {
     constructor(
         private readonly usersService: UsersService,

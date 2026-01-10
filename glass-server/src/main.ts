@@ -22,6 +22,17 @@ async function bootstrap() {
     .setDescription('The GlassStore API description')
     .setVersion('1.0')
     .addTag('Glasses')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        description: 'Enter JWT token',
+        in: 'header',
+      },
+      'JWT-auth', // This is the key name for the security scheme
+    )
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
@@ -29,3 +40,12 @@ async function bootstrap() {
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
+
+// USER
+// {
+//   "firstName": "test",
+//   "lastName": "test",
+//   "email": "test@example.com",
+//   "password": "12341234",
+//   "phoneNumber": "+213541400197"
+// }

@@ -56,4 +56,12 @@ export class SellersService {
         return this.sellerRepository.remove(seller);
     }
 
+
+    async findByEmail(email: string) {
+        return this.sellerRepository.findOne({ 
+            where: { email },
+            select: ['id', 'email', 'password']
+        });
+    }
+
 }

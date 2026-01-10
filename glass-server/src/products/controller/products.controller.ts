@@ -1,17 +1,21 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, ParseIntPipe, ParseUUIDPipe, Post, Put, Query, Req, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, ParseIntPipe, ParseUUIDPipe, Post, Put, Query, Req, Res, UseGuards } from '@nestjs/common';
 import { GlassService } from '../service/glass.service';
 import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
 import { CreateProductDto } from '../dto/create.product.dto';
 import { BrandService } from '../service/brand.service';
 import { UpdateProductDto } from '../dto/update.product.dto';
 import { ProductVariantService } from '../service/product.variant.service';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SellersService } from '../../sellers/sellers.service';
+import { Roles } from '../../auth/decorators/roles.decorator';
+import { UserRole } from '../../common/constants/enums';
+import { RolesGuard } from '../../auth/guards/roles.guard';
 
 const idSeller = "9db9261f-1c56-4e40-b1b1-a0357753f44e"; // TODO : remove this hardcoded value and get seller from req.user
 
 @ApiTags("Glasses")
 @Controller('glasses')
+@ApiBearerAuth('JWT-auth')
 export class ProductsController {
 
     constructor(
@@ -49,8 +53,11 @@ export class ProductsController {
         return glasses;
     }
 
+
     @ApiResponse({status: 201, description: 'Glass created successfully.'})
     @Post()
+    @Roles(UserRole.SELLER) 
+    @UseGuards(RolesGuard)
     async createProduct(@Body() productDto: CreateProductDto, /* @Req() req */) {
         let brand;
         if (productDto.idBrand) {
@@ -82,6 +89,9 @@ export class ProductsController {
         return glass;
     }
 
+
+    @Roles(UserRole.SELLER) // Only Sellers can create glasses
+    @UseGuards(RolesGuard)
     @ApiResponse({status: 201, description: 'Glass updated successfully.'})
     @Put(":id")
     async updateProduct(

@@ -1,11 +1,12 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
 import { AddressesService } from './addresses.service';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { CreateAddressDto } from './dto/create.address.dto';
 import { UpdateAddressDto } from './dto/update.address.dto';
 
 @Controller('addresses')
+@ApiBearerAuth('JWT-auth')
 export class AddressesController {
 
     constructor(

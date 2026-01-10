@@ -1,11 +1,12 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
 import { PaymentsService } from './payments.service';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { CreatePaymentDto } from './dto/create.payment.dto';
 import { UpdatePaymentDto } from './dto/update.payment.dto';
 
 @Controller('payments')
+@ApiBearerAuth('JWT-auth')
 export class PaymentsController {
 
     constructor(

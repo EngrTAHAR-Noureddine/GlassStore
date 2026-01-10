@@ -1,12 +1,13 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
 import { SellersService } from './sellers.service';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { CreateSellerDto } from './dto/create.seller.dto';
 import { UpdateSellerDto } from './dto/update.seller.dto';
 import { UsersService } from '../users/users.service';
 
 @Controller('sellers')
+@ApiBearerAuth('JWT-auth')
 export class SellersController {
 
     constructor(

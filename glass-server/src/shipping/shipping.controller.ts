@@ -1,11 +1,12 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { UpdateShippingDto } from './dto/update.shipping.dto';
 import { CreateShippingDto } from './dto/create.shipping.dto';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { ShippingService } from './shipping.service';
 
 @Controller('shipping')
+@ApiBearerAuth('JWT-auth')
 export class ShippingController {
 
     constructor(
