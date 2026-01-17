@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glass_app/modules/authentication/components/custom_app_bar.dart';
+import 'package:glass_app/modules/stock/components/glass_card.dart';
+import 'package:glass_app/shared/components/staggered_grid.dart';
 import 'package:glass_app/shared/constant/constants.dart';
 
 class StockScreen extends StatefulWidget {
@@ -17,11 +19,17 @@ class _StockScreenState extends State<StockScreen> {
       appBar: CustomAppBar(title: "Stock"),
 
       body: Center(
-        child: ListView(
-          children: [
-            Card()
-          ],
-        ),
+        child: SingleChildScrollView(
+          child: StaggeredGrid.count(
+            crossAxisCount: 2,
+            mainAxisSpacing: 1,
+            crossAxisSpacing: 1,
+            children: List.generate(
+              20,
+                  (index) => GlassCard(),
+            ),
+          ),
+        )
       ),
 
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
