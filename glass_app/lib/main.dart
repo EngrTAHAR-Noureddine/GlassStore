@@ -22,18 +22,18 @@ class GlassesApp extends StatelessWidget {
       navigatorKey: _navigatorKey,
       title: 'Glasses',
       debugShowCheckedModeBanner: false,
-      // builder: (context, child) {
-      //   return Overlay(
-      //     initialEntries: [
-      //       OverlayEntry(
-      //         builder: (context) => ScrollConfiguration(
-      //           behavior: NoGlowScrollBehavior(),
-      //           child: child!,
-      //         ),
-      //       ),
-      //     ],
-      //   );
-      // },
+      builder: (context, child) {
+        return Overlay(
+          initialEntries: [
+            OverlayEntry(
+              builder: (context) => ScrollConfiguration(
+                behavior: NoGlowScrollBehavior(),
+                child: child!,
+              ),
+            ),
+          ],
+        );
+      },
       onGenerateRoute: (settings) => AppRoutes.generateRoute(settings),
       translations: AppTranslation(),
       locale: Locale('en', 'US'),
